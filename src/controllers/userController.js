@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { UserSchema } from "../models/userModel";
-import bcrypt from 'bcrypt';
+import {UserSchema} from "../models/userModel";
+import bcrypt from 'bcryptjs';
 
 const User = mongoose.model('User', UserSchema);
 
@@ -11,8 +11,6 @@ export const createUser = (req, res) => {
         if(err) {
             res.status(400).send(err);
         } else {
-            //let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), data: user}, 'mySuperSecrett');
-            //let response = {user: user,token: token}
             res.status(201).json(user);
         }
     })

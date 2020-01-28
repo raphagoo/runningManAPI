@@ -1,8 +1,8 @@
+import bcrypt from 'bcryptjs';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    bcrypt = require('bcrypt'),
-    SALT_WORK_FACTOR = 10;
+let salt = bcrypt.genSaltSync(10);
+let mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -23,24 +23,14 @@ export const UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function(next) {
-    var user = this;
+    let user = this;
 
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
 
     // generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-        if (err) return next(err);
-
-        // hash the password using our new salt
-        bcrypt.hash(user.password, salt, function(err, hash) {
-            if (err) return next(err);
-
-            // override the cleartext password with the hashed one
-            user.password = hash;
-            next();
-        });
-    });
+    user.password = bcrypt.hashSync(user.password, salt);
+    next();
 });
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
@@ -51,4 +41,3 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 UserSchema.plugin(require('mongoose-autopopulate'));
-module.exports = mongoose.model('User', UserSchema);
