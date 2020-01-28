@@ -2,6 +2,17 @@ import express from 'express';
 let app = require('express')();
 let http = require('http').createServer(app);
 
+export let io = require('socket.io')(http, {
+    handlePreflightRequest: (req, res) => {
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin,
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
+}});
+
 import mongoose from 'mongoose';
 
 
@@ -10,6 +21,21 @@ import { raceRoutes } from "./src/routes/raceRoutes.js";
 
 const PORT = 3000;
 
+
+io.on('connection', (socket) => {
+    console.log(`Socket ${socket.id} connected`);
+
+    socket.on('disconnect', () => {
+        console.log(`socket ${socket.id} disconnected`);
+    });
+
+    /**
+     * On updateRace event, update or add the different field from the race entry
+     */
+    socket.on('updateRace', () => {
+        
+    });
+});
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());

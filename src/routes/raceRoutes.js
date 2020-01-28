@@ -4,9 +4,6 @@ export const raceRoutes = (app) => {
     app.route('/race/create')
         .post(createRace);
 
-    app.route('/race/list')
-        .get(listRaces);
-
     app.route('/race/:id')
         .get(getRace);
 

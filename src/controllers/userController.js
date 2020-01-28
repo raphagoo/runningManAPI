@@ -42,6 +42,19 @@ export const getUser = (req, res) => {
     });
 };
 
+export const listUserRaces = (req, res) => {
+    User.findById(req.params.id)
+    .exec((err, user) => {
+        if(err) {
+            res.status(400).send(err);
+        } else if(user === null) {
+            res.sendStatus(404)
+        } else {
+            res.status(200).json(user.races)
+        }
+    });
+};
+
 export const login = (req, res) => {
     User.findOne({username: req.body.username})
     .exec((err, user) => {

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { RaceSchema } from "../models/raceModel";
-const jwtVerification = require('../services/jwtVerification');
+const jwtService = require('../services/jwtService');
 const Race = mongoose.model('Race', RaceSchema);
 
 export const createRace = (req, res) => {
-    if(jwtVerification.verifyJwt(req) === true){
+    if(jwtService.verifyJwt(req) === true){
         let newRace = new Race(req.body);
         newRace.save((err, race) => {
             if(err) {
@@ -17,17 +17,6 @@ export const createRace = (req, res) => {
     else{
         res.sendStatus(403);
     }
-};
-
-export const listRaces = (req, res) => {
-    Race.find({})
-    .exec((err, races) => {
-        if(err) {
-            res.status(400).send(err);
-        } else {
-            res.status(200).json(races)
-        }
-    });
 };
 
 export const getRace = (req, res) => {
