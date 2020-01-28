@@ -1,6 +1,8 @@
 # Running man - API
 
-![Node CI](https://github.com/raphagoo/runningManAPI/workflows/Node%20CI/badge.svg)
+![Node CI](https://github.com/raphagoo/runningManAPI/workflows/Node%20CI/badge.svg) 
+[![Dependency Status](https://david-dm.org/raphagoo/runningManAPI/status.svg)](https://david-dm.org/raphagoo/runningManAPI#info=dependencies) 
+[![devDependency Status](https://david-dm.org/raphagoo/runningManAPI/dev-status.svg)](https://david-dm.org/raphagoo/runningManAPI#info=devDependencies)
 
 Agostini Raphael
 
