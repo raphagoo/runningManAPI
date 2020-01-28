@@ -64,7 +64,7 @@ export const login = (req, res) => {
         else{
             bcrypt.compare(req.body.password, user.password, function(err, response) {
                 if(response) {
-                    let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), data: {username: user.username}}, 'mySuperSecrett');
+                    let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), data: {id: user.id}}, 'mySuperSecrett');
                     const response = {user: user, token: token}
                     res.status(200).json(response)
                 } else {

@@ -17,7 +17,7 @@ function verifyJwt(req){
             console.log(err)
         }
         else{
-            tokenVerified = true
+            tokenVerified = decoded
         }
     })
     return tokenVerified
