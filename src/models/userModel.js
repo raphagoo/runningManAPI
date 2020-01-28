@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
 
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 export const UserSchema = new Schema({
     username: {
@@ -14,13 +15,11 @@ export const UserSchema = new Schema({
         type: String,
         required: 'Password required'
     },
-}, {
-    toObject: {
-      transform: function (doc, ret, game) {
-        delete ret.__v;
-        delete ret._id;
-      }
-    }
+    races:[{
+        type: ObjectId,
+        ref: 'Race',
+        autopopulate: true
+    }]
 });
 
 UserSchema.pre('save', function(next) {

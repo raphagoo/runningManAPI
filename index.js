@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 
 import { userRoutes } from "./src/routes/userRoutes.js";
+import { raceRoutes } from "./src/routes/raceRoutes.js";
 
 const PORT = 3000;
 
@@ -35,6 +36,7 @@ mongoose.connect('mongodb://localhost/runningMan', {
 
 // Routes initialisation
 userRoutes(app);
+raceRoutes(app);
 
 
 http.listen(PORT, 
