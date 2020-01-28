@@ -1,6 +1,6 @@
 # Running man - API
 Agostini Raphael
-![Build Status](https://github.com/raphagoo/runningManAPI/workflows/Nosz%20CI/badge.svg)
+![Build Status](https://github.com/raphagoo/runningManAPI/workflows/Node%20CI/badge.svg)
 ## Project setup
 
 - Run npm install
