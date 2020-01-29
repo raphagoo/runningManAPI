@@ -1,5 +1,11 @@
 import { createUser, login, listUsers,listUserRaces, getUser, updateUser, deleteUser } from "../controllers/userController.js";
+const jwtService = require('../services/jwtService');
 
+
+/**
+ * Routes for User model
+ * @param {*} app 
+ */
 export const userRoutes = (app) => {
     app.route('/user/register')
         .post(createUser);

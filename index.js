@@ -1,7 +1,11 @@
 import express from 'express';
 let app = require('express')();
 let http = require('http').createServer(app);
+const jwtService = require('./src/services/jwtService');
 
+/**
+ * Socket initialisation
+ */
 export let io = require('socket.io')(http, {
     handlePreflightRequest: (req, res) => {
         const headers = {
@@ -15,13 +19,17 @@ export let io = require('socket.io')(http, {
 
 import mongoose from 'mongoose';
 
-
+/**
+ * Routing imports
+ */
 import { userRoutes } from "./src/routes/userRoutes.js";
 import { raceRoutes } from "./src/routes/raceRoutes.js";
 
 const PORT = 3000;
 
-
+/**
+ * Socket events
+ */
 io.on('connection', (socket) => {
     console.log(`Socket ${socket.id} connected`);
 
@@ -32,17 +40,24 @@ io.on('connection', (socket) => {
     /**
      * On updateRace event, update or add the different field from the race entry
      */
-    socket.on('updateRace', () => {
-        
+    socket.on('updateRace', (socket) => {
+        app.use(function (){
+                jwtService.verifyJwt(socket, res, next)
+            })
+            .route('/race/:id')
+            .patch(updateRace);
     });
 });
 
+/**
+ * CORS authorizations
+ */
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-Width, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
     next();
 });
 

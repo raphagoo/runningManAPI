@@ -1,6 +1,10 @@
 import { createRace, getRace, updateRace, deleteRace } from "../controllers/raceController.js";
 const jwtService = require('../services/jwtService');
 
+/**
+ * Routes for Race model
+ * @param {*} app 
+ */
 export const raceRoutes = (app) => {
     app.use(function (req, res, next){
         jwtService.verifyJwt(req, res, next)
@@ -18,7 +22,7 @@ export const raceRoutes = (app) => {
         jwtService.verifyJwt(req, res, next)
         })
         .route('/race/:id')
-        .put(updateRace);
+        .patch(updateRace);
 
     app.use(function (req, res, next){
         jwtService.verifyJwt(req, res, next)
