@@ -1,15 +1,28 @@
-import { createRace, listRaces, getRace, updateRace, deleteRace } from "../controllers/raceController.js";
+import { createRace, getRace, updateRace, deleteRace } from "../controllers/raceController.js";
+const jwtService = require('../services/jwtService');
 
 export const raceRoutes = (app) => {
-    app.route('/race/create')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/race/create')
         .post(createRace);
 
-    app.route('/race/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/race/:id')
         .get(getRace);
 
-    app.route('/race/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/race/:id')
         .put(updateRace);
 
-    app.route('/race/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/race/:id')
         .delete(deleteRace);
 }

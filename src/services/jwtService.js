@@ -5,8 +5,7 @@ module.exports = {
     verifyJwt
 };
 
-function verifyJwt(req){
-    let tokenVerified = false
+function verifyJwt(req, res, next){
     let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
     if (token.startsWith('Bearer ')) {
       // Remove Bearer from string
@@ -14,11 +13,11 @@ function verifyJwt(req){
     }
     jwt.verify(token, 'mySuperSecrett', function(err, decoded){
         if(err){
-            console.log(err)
+            res.sendStatus(404)
         }
         else{
-            tokenVerified = decoded
+            req.decoded = decoded
         }
     })
-    return tokenVerified
+    next()
 }

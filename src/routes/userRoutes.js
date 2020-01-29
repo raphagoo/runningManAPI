@@ -7,18 +7,33 @@ export const userRoutes = (app) => {
     app.route('/user/login')
         .post(login);
 
-    app.route('/user/list')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/user/list')
         .get(listUsers);
 
-    app.route('/user/:id/races/')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/user/:id/races/')
         .get(listUserRaces);
 
-    app.route('/user/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/user/:id')
         .get(getUser);
 
-    app.route('/user/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/user/:id')
         .put(updateUser);
 
-    app.route('/user/:id')
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req, res, next)
+        })
+        .route('/user/:id')
         .delete(deleteUser);
 }
