@@ -15,6 +15,10 @@ export const UserSchema = new Schema({
         type: String,
         required: 'Password required'
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     races:[{
         type: ObjectId,
         ref: 'Race',
