@@ -1,4 +1,4 @@
-import { createUser, login, listUsers,listUserRaces, getUser, updateUser, deleteUser } from "../controllers/userController.js";
+import { createUser, login, loginAdmin, listUsers,listUserRaces, getUser, updateUser, deleteUser } from "../controllers/userController.js";
 const jwtService = require('../services/jwtService');
 
 
@@ -12,6 +12,9 @@ export const userRoutes = (app) => {
 
     app.route('/user/login')
         .post(login);
+
+    app.route('/admin/login')
+        .post(loginAdmin);
 
     app.use(function (req, res, next){
         jwtService.verifyJwt(req, res, next)

@@ -56,7 +56,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-Width, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-Width, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE");
     next();
 });

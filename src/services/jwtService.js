@@ -20,7 +20,7 @@ function verifyJwt(req, res, next){
         }
         jwt.verify(token, 'mySuperSecrett', function (err, decoded) {
             if (err) {
-                res.sendStatus(403)
+                res.status(401).send('Veuillez vous reconnecter')
             } else {
                 req.decoded = decoded
             }

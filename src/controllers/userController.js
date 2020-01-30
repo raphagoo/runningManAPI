@@ -79,6 +79,30 @@ export const login = (req, res) => {
    
 };
 
+export const loginAdmin = (req, res) => {
+    User.findOne({username: req.body.username})
+    .exec((err, user) => {
+        if (user === null) {
+            res.sendStatus(404)
+        }
+        else{
+            if(user.isAdmin === false){
+                res.status(403).send({error: 'boo'})
+            }
+            bcrypt.compare(req.body.password, user.password, function(err, response) {
+                if(response) {
+                    let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), data: {id: user.id, isAdmin: user.isAdmin}}, 'mySuperSecrett');
+                    const response = {user: user, token: token}
+                    res.status(200).json(response)
+                } else {
+                    res.sendStatus(404)
+                } 
+              });
+        }
+    });
+   
+};
+
 export const updateUser = (req, res) => {
     if(req.decoded.data.id === req.params.id || req.decoded.data.isAdmin === true){
         User.findOneAndUpdate({"_id": req.params.id}, req.body, {new: true, useFindAndModify: false})
