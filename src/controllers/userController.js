@@ -89,7 +89,8 @@ export const loginAdmin = (req, res) => {
             if(user.isAdmin === false){
                 res.status(403).send({error: 'boo'})
             }
-            bcrypt.compare(req.body.password, user.password, function(err, response) {
+            else {
+                bcrypt.compare(req.body.password, user.password, function(err, response) {
                 if(response) {
                     let token = jwt.sign({exp: Math.floor(Date.now() / 1000) + (60 * 60), data: {id: user.id, isAdmin: user.isAdmin}}, 'mySuperSecrett');
                     const response = {user: user, token: token}
@@ -98,6 +99,7 @@ export const loginAdmin = (req, res) => {
                     res.sendStatus(404)
                 } 
               });
+            }
         }
     });
    
