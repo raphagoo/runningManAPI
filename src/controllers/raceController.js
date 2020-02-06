@@ -37,7 +37,7 @@ const datesAreOnSameDay = (first, second) =>
     first.getDate() === second.getDate();
 
 
-export const lastWeekRaces = (req, res) => {
+export const statRaces = (req, res) => {
     let end = moment(new Date()).toDate()
     let start = moment(new Date()).subtract(7, 'days').toDate()
     if(req.decoded.data.isAdmin === true){
@@ -57,7 +57,7 @@ export const lastWeekRaces = (req, res) => {
                         }
                     })
                 })
-                res.status(200).json(statsLastWeek)
+                res.status(200).json({races: races, stats: statsLastWeek})
             }
         })
     }
