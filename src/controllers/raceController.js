@@ -53,19 +53,20 @@ export const countryRaces = (req, res) => {
                 res.status(400).send(err);
             } else {
                 let wideListCountry = []
-                const geocodePromises = races.map(race => {
+                let promises = Promise.all(races.map(race => {
                     geocoder.reverse({lat: race.startPosLat, lon: race.startPosLong})
                     .then(response => {
                         response.forEach(place => {
                             wideListCountry.push(place.country)
                         })
+                        return response
                     })
-                })
-                Promise.all(geocodePromises).then(() => {
+                }))
+                promises.then(response => {
+                    console.log(response)
                     console.log(wideListCountry)
                     res.status(200).json(races)
                 })
-                
             }
         })
     }
