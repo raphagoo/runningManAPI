@@ -2,8 +2,17 @@ import mongoose from 'mongoose';
 import moment from 'moment'
 import { RaceSchema } from "../models/raceModel";
 import { UserSchema } from "../models/userModel";
+import NodeGeocoder from 'node-geocoder'
 const Race = mongoose.model('Race', RaceSchema);
 const User = mongoose.model('User', UserSchema);
+
+let options = {
+    provider: 'google',
+    httpAdaptater: 'https',
+    apiKey: 'AIzaSyDhQd_OqySckHoHuLuvXkn0fPfNK8PzZ88'
+}
+
+let geocoder = NodeGeocoder(options)
 
 export const createRace = (req, res) => {
     if(req.decoded.data.id === req.params.id || req.decoded.data.isAdmin === true){
@@ -36,6 +45,34 @@ const datesAreOnSameDay = (first, second) =>
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
 
+export const countryRaces = (req, res) => {
+    if(req.decoded.data.isAdmin === true){
+        Race.find({})
+        .exec((err, races) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                let wideListCountry = []
+                const geocodePromises = races.map(race => {
+                    geocoder.reverse({lat: race.startPosLat, lon: race.startPosLong})
+                    .then(response => {
+                        response.forEach(place => {
+                            wideListCountry.push(place.country)
+                        })
+                    })
+                })
+                Promise.all(geocodePromises).then(() => {
+                    console.log(wideListCountry)
+                    res.status(200).json(races)
+                })
+                
+            }
+        })
+    }
+    else{
+        res.status(403)
+    }
+}
 
 export const statRaces = (req, res) => {
     let end = moment(new Date()).toDate()

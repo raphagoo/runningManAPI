@@ -7,13 +7,13 @@ const jwtService = require('../services/jwtService');
  * @param {*} app 
  */
 export const userRoutes = (app) => {
-    app.route('/user/register')
+    app.route('/register')
         .post(createUser);
 
-    app.route('/user/login')
+    app.route('/login')
         .post(login);
 
-    app.route('/admin/login')
+    app.route('/loginAdmin')
         .post(loginAdmin);
 
     app.use(function (req, res, next){
