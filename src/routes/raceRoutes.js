@@ -1,4 +1,4 @@
-import { createRace, getRace, updateRace, deleteRace } from "../controllers/raceController.js";
+import { createRace, getRace, listRaces, lastWeekRaces, updateRace, deleteRace } from "../controllers/raceController.js";
 const jwtService = require('../services/jwtService');
 
 /**
@@ -25,6 +25,18 @@ export const raceRoutes = (app) => {
         .patch(updateRace);
 
     app.use(function (req, res, next){
+        jwtService.verifyJwt(req,res, next)
+        })
+        .route('/race')
+        .get(listRaces)
+
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req,res, next)
+        })
+        .route('/race/last/week')
+        .get(lastWeekRaces)
+   
+        app.use(function (req, res, next){
         jwtService.verifyJwt(req, res, next)
         })
         .route('/race/:id')

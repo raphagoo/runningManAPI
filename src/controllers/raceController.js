@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from 'moment'
 import { RaceSchema } from "../models/raceModel";
 import { UserSchema } from "../models/userModel";
 const Race = mongoose.model('Race', RaceSchema);
@@ -27,6 +28,57 @@ export const createRace = (req, res) => {
     }
     else{
         res.sendStatus(403)
+    }
+};
+
+const datesAreOnSameDay = (first, second) =>
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate();
+
+
+export const lastWeekRaces = (req, res) => {
+    let end = moment(new Date()).toDate()
+    let start = moment(new Date()).subtract(7, 'days').toDate()
+    if(req.decoded.data.isAdmin === true){
+        Race.find({date: {'$gte':  start, '$lte': end}})
+        .exec((err, races) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                let statsLastWeek = []
+                for(let i = 7; i > 0; i--){
+                    statsLastWeek.push({date: moment(new Date()).subtract(i, 'days').toDate(), count: 0})
+                }
+                races.forEach(race => {
+                    statsLastWeek.forEach(stat => {
+                        if(datesAreOnSameDay(race.date, stat.date) === true){
+                            stat.count++
+                        }
+                    })
+                })
+                res.status(200).json(statsLastWeek)
+            }
+        })
+    }
+    else{
+        res.status(403)
+    }
+}
+
+export const listRaces = (req, res) => {
+    if(req.decoded.data.isAdmin === true){
+        Race.find({})
+        .exec((err, races) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                res.status(200).json(races)
+            }
+        })
+    }
+    else{
+        res.status(403)
     }
 };
 
