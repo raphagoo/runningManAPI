@@ -1,4 +1,4 @@
-import { createRace, getRace, listRaces, statRaces, countryRaces, updateRace, deleteRace } from "../controllers/raceController.js";
+import { createRace, getRace, listRaces, statRaces, countryRaces, lengthRaces, updateRace, deleteRace } from "../controllers/raceController.js";
 const jwtService = require('../services/jwtService');
 
 /**
@@ -41,6 +41,12 @@ export const raceRoutes = (app) => {
         })
         .route('/race/country/stats')
         .get(countryRaces)
+
+    app.use(function (req, res, next){
+        jwtService.verifyJwt(req,res, next)
+        })
+        .route('/race/distances/stats')
+        .get(lengthRaces)
 
     app.use(function (req, res, next){
         jwtService.verifyJwt(req, res, next)

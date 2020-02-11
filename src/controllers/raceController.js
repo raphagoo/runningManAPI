@@ -64,14 +64,46 @@ export const countryRaces = (req, res) => {
                             wideListCountry.push(place.country)
                         })
                     })
-                    var counts = {};
+                    let counts = {};
                     wideListCountry.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
-                    var result = Object.entries(counts);
+                    let result = Object.entries(counts);
                     res.status(200).json(result)
                 })
                 .catch((e) => {
                     console.log(e)
                 })
+            }
+        })
+    }
+    else{
+        res.status(403)
+    }
+}
+
+export const lengthRaces = (req, res) => {
+    if(req.decoded.data.isAdmin === true){
+        Race.find({})
+        .exec((err, races) => {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                let distances = {'< 2km': 0, '2 to 5km': 0, '5 to 10km':0, '> 10km':0}
+                races.forEach(race => {
+                    if(race.distance < 2000){
+                        distances['< 2km']++
+                    }
+                    else if (2000 < race.distance && race.distance < 5000){
+                        distances['2 to 5km']++
+                    }
+                    else if (5000 < race.distance && race.distance < 10000){
+                        distances['5 to 10km']++
+                    }
+                    else{
+                        distances['> 10km']++
+                    }
+                })
+                let result = Object.entries(distances);
+                res.status(200).json(result)
             }
         })
     }
@@ -116,6 +148,7 @@ export const listRaces = (req, res) => {
             if(err) {
                 res.status(400).send(err);
             } else {
+                console.log(races)
                 res.status(200).json(races)
             }
         })
