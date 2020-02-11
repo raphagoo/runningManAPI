@@ -87,7 +87,7 @@ export const loginAdmin = (req, res) => {
         }
         else{
             if(user.isAdmin === false){
-                res.status(403).send({error: 'boo'})
+                res.status(403).send()
             }
             else {
                 bcrypt.compare(req.body.password, user.password, function(err, response) {
