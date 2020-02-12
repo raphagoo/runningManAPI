@@ -148,7 +148,6 @@ export const listRaces = (req, res) => {
             if(err) {
                 res.status(400).send(err);
             } else {
-                console.log(races)
                 res.status(200).json(races)
             }
         })
@@ -177,7 +176,7 @@ export const getRace = (req, res) => {
 };
 
 export const updateRace = (req, res) => {
-    if(req.decoded.data.id === req.params.id || req.decoded.data.isAdmin === true){
+    if(req.data.id === req.params.id){
         Race.findOneAndUpdate({"_id": req.params.id}, req.body, {new: true, useFindAndModify: false})
         .exec((err, race) => {
             if(err) {
