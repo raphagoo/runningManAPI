@@ -59,7 +59,6 @@ export const listUserRaces = (req, res) => {
 };
 
 export const login = (req, res) => {
-    console.log('test')
     User.findOne({username: req.body.username})
     .exec((err, user) => {
         if (user === null) {

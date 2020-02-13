@@ -1,7 +1,6 @@
 import express from 'express';
 let app = require('express')();
 let http = require('http').createServer(app);
-const jwtService = require('./src/services/jwtService');
 
 /**
  * Socket initialisation
@@ -63,7 +62,7 @@ export const autoIncrement = require('mongoose-auto-increment');
 
 // mongoose connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/runningMan', {
+mongoose.connect('mongodb+srv://raphAdmin:kakashi%2313@raphcluster-hjbxp.mongodb.net/projetUf?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, error => {
