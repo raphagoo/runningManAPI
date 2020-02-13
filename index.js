@@ -64,7 +64,7 @@ export const autoIncrement = require('mongoose-auto-increment');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://raphAdmin:kakashi%2313@raphcluster-hjbxp.mongodb.net/projetUf?retryWrites=true&w=majority', {
     useNewUrlParser: true,
-    useUnifiedTopology: false
+    useUnifiedTopology: true
 }, error => {
     if(error) {
         console.log(error);
