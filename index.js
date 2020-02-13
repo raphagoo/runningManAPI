@@ -60,6 +60,7 @@ app.use((req, res, next) => {
 
 export const autoIncrement = require('mongoose-auto-increment');
 
+
 // mongoose connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://raphAdmin:kakashi%2313@raphcluster-hjbxp.mongodb.net/projetUf?retryWrites=true&w=majority', {
@@ -77,6 +78,4 @@ userRoutes(app);
 raceRoutes(app);
 
 
-http.listen(PORT, 
-    console.log(`listening on port ${PORT}`)
-);
+http.listen(process.env.PORT || PORT);
