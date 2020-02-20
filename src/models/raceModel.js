@@ -32,6 +32,7 @@ export const RaceSchema = new Schema({
     },
     inProgress: {
         type: Boolean,
+        default: true
     }
 });
 RaceSchema.plugin(require('mongoose-autopopulate'));
