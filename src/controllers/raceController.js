@@ -176,9 +176,23 @@ export const getRace = (req, res) => {
 };
 
 export const updateRace = (req, res) => {
-    console.log(req)
-    if(req.params._id){
-        Race.findOneAndUpdate({"_id": req.params._id}, req.params, {new: true, useFindAndModify: false})
+    if(req.params){
+        Race.findOneAndUpdate({"_id": req.params.id}, req.body, {new: true, useFindAndModify: false})
+            .exec((err, race) => {
+                if(err) {
+                    res.status(400).send(err);
+                } else {
+                    if(race == null) {
+                        res.sendStatus(404);
+                    }
+                    else {
+                        res.status(200).json(race);
+                    }
+                }
+            });
+    }
+    else if(req.infos){
+        Race.findOneAndUpdate({"_id": req.infos._id}, req.body, {new: true, useFindAndModify: false})
         .exec();
     }
     else{
