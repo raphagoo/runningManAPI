@@ -33,6 +33,10 @@ const PORT = 3000;
 io.on('connection', (socket) => {
     console.log(`Socket ${socket.id} connected`);
 
+    socket.on('hello', () => {
+        console.log(`hello`);
+    });
+
     socket.on('disconnect', () => {
         console.log(`socket ${socket.id} disconnected`);
     });
