@@ -196,8 +196,8 @@ export const updateRace = (req, res) => {
     }
 };
 
-export const updateRaceSocket = (req) => {
-    Race.findOneAndUpdate({"_id": req.params._id}, req.body, {new: true, useFindAndModify: false})
+export const updateRaceSocket = (req, res) => {
+    Race.findOneAndUpdate({"_id": req.params._id}, req.params, {new: true, useFindAndModify: false})
         .exec();
 };
 

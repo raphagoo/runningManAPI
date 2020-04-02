@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
      * On updateRace event, update or add the different field from the race entry
      */
     socket.on('updateRace', (socket) => {
+        console.log(socket)
         updateRaceSocket(socket)
     });
 });
