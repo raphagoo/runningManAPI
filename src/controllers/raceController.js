@@ -176,12 +176,7 @@ export const getRace = (req, res) => {
 };
 
 export const updateRace = (req, res) => {
-    if(req.infos){
-        Race.findOneAndUpdate({"_id": req.infos._id}, req.body, {new: true, useFindAndModify: false})
-            .exec();
-    }
-
-    else if(req.params){
+    if(req.params){
         Race.findOneAndUpdate({"_id": req.params.id}, req.body, {new: true, useFindAndModify: false})
             .exec((err, race) => {
                 if(err) {
@@ -199,6 +194,11 @@ export const updateRace = (req, res) => {
     else{
         res.sendStatus(403)
     }
+};
+
+export const updateRaceSocket = (req) => {
+    Race.findOneAndUpdate({"_id": req.params._id}, req.body, {new: true, useFindAndModify: false})
+        .exec();
 };
 
 export const deleteRace = (req, res) => {

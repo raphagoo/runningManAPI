@@ -23,7 +23,7 @@ import mongoose from 'mongoose';
  */
 import { userRoutes } from "./src/routes/userRoutes.js";
 import { raceRoutes } from "./src/routes/raceRoutes.js";
-import { updateRace } from "./src/controllers/raceController.js";
+import {updateRaceSocket} from "./src/controllers/raceController";
 
 const PORT = 3000;
 
@@ -41,8 +41,7 @@ io.on('connection', (socket) => {
      * On updateRace event, update or add the different field from the race entry
      */
     socket.on('updateRace', (socket) => {
-        console.log(socket)
-        updateRace(socket)
+        updateRaceSocket(socket)
     });
 });
 
