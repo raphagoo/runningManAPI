@@ -176,6 +176,7 @@ export const getRace = (req, res) => {
 };
 
 export const updateRace = (req, res) => {
+    console.log(req)
     if(req.params.id){
         Race.findOneAndUpdate({"_id": req.params.id}, req.body, {new: true, useFindAndModify: false})
         .exec((err, race) => {
