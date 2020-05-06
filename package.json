@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon ./index.js --exec babel-node -e js"
+    "start": "nodemon ./index.js --exec babel-node -e js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "raphagoo",
   "license": "MIT",
@@ -23,8 +25,9 @@
     "nodemon": "^2.0.2",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-stage-0": "^6.24.1",
+    "snyk": "^1.319.0"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {},
+  "snyk": true
 }
