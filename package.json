@@ -20,7 +20,7 @@
     "mongoose-autopopulate": "^0.12.0",
     "node-geocoder": "^3.25.1",
     "socket.io": "^2.3.0",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1"
