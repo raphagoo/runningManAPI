@@ -89,13 +89,13 @@ export const lengthRaces = (req, res) => {
             } else {
                 let distances = {'< 2km': 0, '2 to 5km': 0, '5 to 10km':0, '> 10km':0}
                 races.forEach(race => {
-                    if(race.distance < 2000){
+                    if(race.distance < 2){
                         distances['< 2km']++
                     }
-                    else if (2000 < race.distance && race.distance < 5000){
+                    else if (2 < race.distance && race.distance < 5){
                         distances['2 to 5km']++
                     }
-                    else if (5000 < race.distance && race.distance < 10000){
+                    else if (5 < race.distance && race.distance < 10){
                         distances['5 to 10km']++
                     }
                     else{
