@@ -19,7 +19,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "node-geocoder": "^3.26.0",
     "mongoose-autopopulate": "^0.12.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "nodemon": "^2.0.3",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
